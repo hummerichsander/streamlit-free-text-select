@@ -19,7 +19,7 @@ value = st_free_text_select(
     label="Free text select",
     options=options,
     format_func=lambda x: x.lower(),
-    placeholder="enter question",
+    placeholder="Select or enter a fruit",
     disabled=False,
     delay=300,
 )
