@@ -26,7 +26,7 @@ value = st_free_text_select(
 st.write("Free text select value:", value)
 ```
 
-![demo](https://github.com/hummerichsander/streamlit-freetextselect/blob/master/streamlit-free-text-demo.gif)
+![demo](./streamlit-free-text-demo.gif)
 
 
 ## Docs
