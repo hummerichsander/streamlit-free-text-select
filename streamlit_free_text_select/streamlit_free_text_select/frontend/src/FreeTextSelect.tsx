@@ -100,9 +100,11 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
     if (option === null) {
       option = { label: null, value: null };
       this._updateInputOption(option);
+      this.setState({ selectedOption: null });
+    } else {
+      this._updateComponent(option);
+      this.setState({ selectedOption: option });
     }
-    this._updateComponent(option);
-    this.setState({ selectedOption: option });
   }
 
   private _handleInputChange(value: String): void {
