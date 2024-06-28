@@ -85,7 +85,6 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
             }
           }
           isClearable={true}
-          onClear={this._handleOnChange}
           isSearchable={true}
           onMenuOpen={() => this.setState({ extended: true })}
           onMenuClose={() => this.setState({ extended: false })}
