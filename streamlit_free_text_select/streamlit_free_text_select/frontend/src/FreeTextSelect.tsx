@@ -29,14 +29,19 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
 
   constructor(props: ComponentProps) {
     super(props);
+    const options = this.props.args.options.map((option: string) => {
+      return { label: option, value: option };
+    })
     this.state = {
       isFocused: false,
       extended: false,
-      options: this.props.args.options.map((option: string) => {
-        return { label: option, value: option };
-      }),
-      selectedOption: null,
+      options: options,
+      selectedOption: props.args.index ? options[props.args.index] : null,
       inputOption: null,
+    }
+    if (this.state.selectedOption) {
+      console.log("updating component")
+      this._updateComponent(this.state.selectedOption);
     }
 
     this._onFocus = this._onFocus.bind(this);
@@ -53,9 +58,13 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
 
     return (
       <div style={this.style.wrapper}>
-        <label style={this.style.label}>
-          {this.props.args.label}
-        </label>
+        {this.props.args.label_visibility !== "collapsed" && (
+          <div style={{visibility: this.props.args.label_visibility}}>
+            <label style={this.style.label}>
+              {this.props.args.label}
+            </label>
+          </div>
+        )}
         <Select
           id={this.props.args.key ? this.props.args.key : "free-text-selectbox"}
           value={this.state.selectedOption}
@@ -76,6 +85,7 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
             }
           }
           isClearable={true}
+          onClear={this._handleOnChange}
           isSearchable={true}
           onMenuOpen={() => this.setState({ extended: true })}
           onMenuClose={() => this.setState({ extended: false })}
@@ -101,6 +111,7 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
       option = { label: null, value: null };
       this._updateInputOption(option);
       this.setState({ selectedOption: null });
+      this._updateComponent(option)
     } else {
       this._updateComponent(option);
       this.setState({ selectedOption: option });
