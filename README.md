@@ -58,7 +58,7 @@ str or None
 
 
 ## Release Notes
-- 0.1.0:
+- 0.1.1:
     Added the `label_visibility` and `index` parameters.
 - 0.0.5:
     Initial release.

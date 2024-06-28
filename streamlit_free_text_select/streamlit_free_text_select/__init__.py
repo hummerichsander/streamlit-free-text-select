@@ -11,7 +11,6 @@ if not _RELEASE:
         url="http://localhost:3001",
     )
 else:
-
     parent_dir = os.path.dirname(os.path.abspath(__file__))
     build_dir = os.path.join(parent_dir, "frontend/build")
     _component_func = components.declare_component(
@@ -80,8 +79,9 @@ def st_free_text_select(
     if format_func is not None:
         options = [format_func(option) for option in options]
 
-    assert index >= 0 and index < len(options), \
-        "index must be within the range of options"
+    if index is not None:
+        assert index >= 0 and index < len(options), \
+            "index must be within the range of options"
 
     assert label_visibility in ["visible", "hidden", "collapsed"], \
         "label_visibility must be one of 'visible', 'hidden', 'collapsed'"
