@@ -58,6 +58,8 @@ str or None
 
 
 ## Release Notes
+- 0.1.2:
+    Bug fix: Fixed issue with `index=0` not selecting the first option.
 - 0.1.1:
     Added the `label_visibility` and `index` parameters.
 - 0.0.5:
