@@ -36,7 +36,7 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
       isFocused: false,
       extended: false,
       options: options,
-      selectedOption: props.args.index ? options[props.args.index] : null,
+      selectedOption: (props.args.index !== null) ? options[props.args.index] : null,
       inputOption: null,
     }
     if (this.state.selectedOption) {

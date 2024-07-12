@@ -7,7 +7,7 @@ long_description = (this_directory / ".." / "README.md").read_text()
 
 setuptools.setup(
     name="streamlit-free-text-select",
-    version="0.1.1",
+    version="0.1.2",
     author="Sander Hummerich",
     author_email="sander.hummerich@gmx.de",
     description="A Streamlit component that allows you to select from a list of options or enter a custom value.",
