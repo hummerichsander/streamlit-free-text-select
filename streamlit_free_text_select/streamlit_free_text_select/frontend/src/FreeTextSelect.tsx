@@ -12,7 +12,6 @@ import FreeTextSelectStyle from "./styling";
 interface State {
   isFocused: boolean
   extended: boolean;
-  options: OptionType[];
   selectedOption: OptionType | null;
   inputOption: String | null;
 }
@@ -29,18 +28,14 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
 
   constructor(props: ComponentProps) {
     super(props);
-    const options = this.props.args.options.map((option: string) => {
-      return { label: option, value: option };
-    })
+    const options = this._getOptionsFromArgs();
     this.state = {
       isFocused: false,
       extended: false,
-      options: options,
       selectedOption: (props.args.index !== null) ? options[props.args.index] : null,
       inputOption: null,
     }
     if (this.state.selectedOption) {
-      console.log("updating component")
       this._updateComponent(this.state.selectedOption);
     }
 
@@ -97,8 +92,14 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
     );
   };
 
+  private _getOptionsFromArgs(): OptionType[] {
+    return this.props.args.options.map((option: string) => {
+      return { label: option, value: option };
+    })
+  }
+
   private _getOptions(): OptionType[] {
-    let options: OptionType[] = [...this.state.options];
+    let options = this._getOptionsFromArgs();
     if (this.state.inputOption !== null) {
       options.unshift({ label: this.state.inputOption, value: this.state.inputOption });
     }
