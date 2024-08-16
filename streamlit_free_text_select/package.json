@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "react-datalist-field": "^20.3.1",
-    "react-datalist-input": "^2.2.1"
-  }
-}
