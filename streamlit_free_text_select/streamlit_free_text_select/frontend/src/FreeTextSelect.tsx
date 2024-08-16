@@ -20,6 +20,7 @@ interface State {
 interface OptionType {
   label: String | null;
   value: String | null;
+  userInput: boolean | null;
 }
 
 
@@ -94,21 +95,24 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
 
   private _getOptionsFromArgs(): OptionType[] {
     return this.props.args.options.map((option: string) => {
-      return { label: option, value: option };
+      return { label: option, value: option, userInput: false };
     })
   }
 
   private _getOptions(): OptionType[] {
     let options = this._getOptionsFromArgs();
+    if (!options.some(option => option.value === this.state.selectedOption?.value) && !this.state.selectedOption?.userInput) {
+      this._handleOnChange(null);
+    }
     if (this.state.inputOption !== null) {
-      options.unshift({ label: this.state.inputOption, value: this.state.inputOption });
+      options.unshift({ label: this.state.inputOption, value: this.state.inputOption, userInput: true });
     }
     return options;
   }
 
   private _handleOnChange(option: OptionType | null): void {
     if (option === null) {
-      option = { label: null, value: null };
+      option = { label: null, value: null, userInput: false };
       this._updateInputOption(option);
       this.setState({ selectedOption: null });
       this._updateComponent(option)
@@ -119,7 +123,7 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
   }
 
   private _handleInputChange(value: String): void {
-    let option: OptionType = { label: value, value: value };
+    let option: OptionType = { label: value, value: value, userInput: true };
     this._updateComponent(option);
     this._updateInputOption(option);
     this.setState({ selectedOption: option });
