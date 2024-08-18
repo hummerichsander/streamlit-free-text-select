@@ -58,6 +58,26 @@ str or None
 
 ## Contributors
 <!-- readme: contributors -start -->
+<table>
+	<tbody>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/hummerichsander">
+                    <img src="https://avatars.githubusercontent.com/u/64867257?v=4" width="100;" alt="hummerichsander"/>
+                    <br />
+                    <sub><b>Sander Niels Hummerich</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/LorianColtof">
+                    <img src="https://avatars.githubusercontent.com/u/3457005?v=4" width="100;" alt="LorianColtof"/>
+                    <br />
+                    <sub><b>Lorian Coltof</b></sub>
+                </a>
+            </td>
+		</tr>
+	<tbody>
+</table>
 <!-- readme: contributors -end -->
 
 ## Release Notes
