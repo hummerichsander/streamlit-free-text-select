@@ -20,7 +20,7 @@ interface State {
 interface OptionType {
   label: String | null;
   value: String | null;
-  userInput: boolean | null;
+  userInput: boolean | null;
 }
 
 
@@ -40,8 +40,6 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
       this._updateComponent(this.state.selectedOption);
     }
 
-    this._onFocus = this._onFocus.bind(this);
-    this._onBlur = this._onBlur.bind(this);
     this._handleInputChange = this._handleInputChange.bind(this);
     this._handleOnChange = this._handleOnChange.bind(this);
     this._updateComponent = this._updateComponent.bind(this);
@@ -55,7 +53,7 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
     return (
       <div style={this.style.wrapper}>
         {this.props.args.label_visibility !== "collapsed" && (
-          <div style={{visibility: this.props.args.label_visibility}}>
+          <div style={{ visibility: this.props.args.label_visibility }}>
             <label style={this.style.label}>
               {this.props.args.label}
             </label>
@@ -86,7 +84,6 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
           onMenuClose={() => this.setState({ extended: false })}
           menuIsOpen={this.state.extended}
           isDisabled={this.props.args.disabled}
-          //menuPortalTarget={document.body}
           menuPlacement="auto"
         />
       </div>
@@ -101,7 +98,11 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
 
   private _getOptions(): OptionType[] {
     let options = this._getOptionsFromArgs();
-    if (!options.some(option => option.value === this.state.selectedOption?.value) && !this.state.selectedOption?.userInput) {
+    if (
+      !options.some(option => option.value === this.state.selectedOption?.value)
+      && !this.state.selectedOption?.userInput
+      && this.state.selectedOption?.value !== null
+    ) {
       this._handleOnChange(null);
     }
     if (this.state.inputOption !== null) {
@@ -112,10 +113,12 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
 
   private _handleOnChange(option: OptionType | null): void {
     if (option === null) {
-      option = { label: null, value: null, userInput: false };
-      this._updateInputOption(option);
-      this.setState({ selectedOption: null });
-      this._updateComponent(option)
+      if (this.state.selectedOption !== null) {
+        option = { label: null, value: null, userInput: false };
+        this._updateInputOption(option);
+        this.setState({ selectedOption: null });
+        this._updateComponent(option);
+      }
     } else {
       this._updateComponent(option);
       this.setState({ selectedOption: option });
@@ -151,15 +154,6 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
       clearTimeout(timer);
       timer = setTimeout(() => { func.apply(this, args); }, timeout);
     };
-  }
-
-  private _onFocus = (): void => {
-    this.setState({ isFocused: true })
-  }
-
-  /** Blur handler for our "Click Me!" button. */
-  private _onBlur = (): void => {
-    this.setState({ isFocused: false })
   }
 }
 

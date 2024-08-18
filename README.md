@@ -56,6 +56,9 @@ Returns
 str or None
     The value of the free text select input.
 
+## Contributors
+<!-- readme: contributors -start -->
+<!-- readme: contributors -end -->
 
 ## Release Notes
 - 0.1.3:
