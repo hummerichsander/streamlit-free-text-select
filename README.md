@@ -81,7 +81,7 @@ str or None
 <!-- readme: contributors -end -->
 
 ## Release Notes
-- 0.1.3:
+- 0.2.0:
     Enhancement: Allow dynamic updating of the options. by [LorianColtof](https://github.com/LorianColtof)
 - 0.1.2:
     Bug fix: Fixed issue with `index=0` not selecting the first option.
