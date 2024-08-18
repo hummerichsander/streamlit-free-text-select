@@ -1,5 +1,5 @@
 import os
-from typing import Optional, Literal
+from typing import Optional, Literal, Callable
 
 import streamlit.components.v1 as components
 
@@ -22,7 +22,7 @@ def st_free_text_select(
     label: str,
     options: list,
     index: Optional[int] = None,
-    format_func: Optional[callable] = None,
+    format_func: Optional[Callable] = None,
     placeholder: Optional[str] = None,
     disabled: bool = False,
     delay: int = 300,
