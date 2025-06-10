@@ -3,7 +3,7 @@ from typing import Optional, Literal, Callable
 
 import streamlit.components.v1 as components
 
-_RELEASE = True
+_RELEASE = False
 
 if not _RELEASE:
     _component_func = components.declare_component(
