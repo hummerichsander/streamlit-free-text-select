@@ -84,7 +84,7 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
           styles={this.style.select}
           components={{
             ClearIndicator: (props) => this.style.clearIndicator(props),
-            DropdownIndicator: () => this.style.iconDropdown(this.state.extended),
+            DropdownIndicator: () => this.style.iconDropdown(this.state.extended, this.props.args.disabled),
             IndicatorSeparator: () => <div></div>,
           }}
           onChange={(event: any) => { this._handleOnChange(event) }}

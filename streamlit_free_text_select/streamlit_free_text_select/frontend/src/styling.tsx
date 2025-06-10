@@ -101,13 +101,18 @@ class FreeTextSelectStyle {
     };
   }
 
-  iconDropdown(menu: boolean) {
+  iconDropdown(menu: boolean, isDisabled: boolean = false) {
+
+    const fillColor = isDisabled
+      ? this.theme.fadedText40
+      : this.theme.textColor;
+
     return (
       <div>
         <Dropdown
           width={24}
           height={24}
-          fill={this.theme.textColor}
+          fill={fillColor}
           style={{
             marginRight: "7px",
             marginBottom: "0px",
