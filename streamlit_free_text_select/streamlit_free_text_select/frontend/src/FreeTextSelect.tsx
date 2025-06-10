@@ -63,7 +63,12 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
     return (
       <>
       <LoadGoogleFont/>
-      <div style={this.style.wrapper}>
+      <div
+        style={{
+          ...this.style.wrapper,
+          cursor: this.props.args.disabled ? "not-allowed" : "default",
+        }}
+      >
         {this.props.args.label_visibility !== "collapsed" && (
           <div style={{ visibility: this.props.args.label_visibility }}>
             <label style={this.style.getLabelStyle(this.props.args.disabled)}>
