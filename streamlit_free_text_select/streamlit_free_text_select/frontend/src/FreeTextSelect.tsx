@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 import Select from "react-select";
 import {
   ComponentProps,
@@ -8,6 +8,16 @@ import {
 } from "streamlit-component-lib";
 import FreeTextSelectStyle from "./styling";
 
+const LoadGoogleFont = () => {
+  useEffect(() => {
+    const link = document.createElement("link");
+    link.href = "https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap";
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+  }, []);
+
+  return null;
+};
 
 interface State {
   isFocused: boolean
@@ -51,10 +61,12 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
     const debouncedInputChange = this._debounce(this._handleInputChange, this.props.args.delay);
 
     return (
+      <>
+      <LoadGoogleFont/>
       <div style={this.style.wrapper}>
         {this.props.args.label_visibility !== "collapsed" && (
           <div style={{ visibility: this.props.args.label_visibility }}>
-            <label style={this.style.label}>
+            <label style={this.style.getLabelStyle(this.props.args.disabled)}>
               {this.props.args.label}
             </label>
           </div>
@@ -87,6 +99,7 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
           menuPlacement="auto"
         />
       </div>
+      </>
     );
   };
 
