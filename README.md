@@ -69,6 +69,13 @@ str or None
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/kevintcaron">
+                    <img src="https://avatars.githubusercontent.com/u/57652990?v=4" width="100;" alt="kevintcaron"/>
+                    <br />
+                    <sub><b>Kevin Caron</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/LorianColtof">
                     <img src="https://avatars.githubusercontent.com/u/3457005?v=4" width="100;" alt="LorianColtof"/>
                     <br />
