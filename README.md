@@ -1,3 +1,7 @@
+[![PyPI Downloads](https://static.pepy.tech/badge/streamlit-free-text-select)](https://pepy.tech/projects/streamlit-free-text-select)
+[![PyPI version](https://img.shields.io/pypi/v/streamlit-free-text-select.svg)](https://pypi.org/project/streamlit-free-text-select/)
+
+
 # Streamlit free text select
 This component implements a selectbox that allows free text input. It is based on React-Select's 'Select'
 component.
