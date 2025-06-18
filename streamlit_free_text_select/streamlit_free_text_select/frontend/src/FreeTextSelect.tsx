@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 import Select from "react-select";
 import {
   ComponentProps,
@@ -8,6 +8,16 @@ import {
 } from "streamlit-component-lib";
 import FreeTextSelectStyle from "./styling";
 
+const LoadGoogleFont = () => {
+  useEffect(() => {
+    const link = document.createElement("link");
+    link.href = "https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap";
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+  }, []);
+
+  return null;
+};
 
 interface State {
   isFocused: boolean
@@ -51,10 +61,17 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
     const debouncedInputChange = this._debounce(this._handleInputChange, this.props.args.delay);
 
     return (
-      <div style={this.style.wrapper}>
+      <>
+      <LoadGoogleFont/>
+      <div
+        style={{
+          ...this.style.wrapper,
+          cursor: this.props.args.disabled ? "not-allowed" : "default",
+        }}
+      >
         {this.props.args.label_visibility !== "collapsed" && (
           <div style={{ visibility: this.props.args.label_visibility }}>
-            <label style={this.style.label}>
+            <label style={this.style.getLabelStyle(this.props.args.disabled)}>
               {this.props.args.label}
             </label>
           </div>
@@ -67,7 +84,7 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
           styles={this.style.select}
           components={{
             ClearIndicator: (props) => this.style.clearIndicator(props),
-            DropdownIndicator: () => this.style.iconDropdown(this.state.extended),
+            DropdownIndicator: () => this.style.iconDropdown(this.state.extended, this.props.args.disabled),
             IndicatorSeparator: () => <div></div>,
           }}
           onChange={(event: any) => { this._handleOnChange(event) }}
@@ -87,6 +104,7 @@ class FreeTextSelect extends StreamlitComponentBase<State> {
           menuPlacement="auto"
         />
       </div>
+      </>
     );
   };
 

@@ -11,7 +11,7 @@ import { ReactComponent as Clear } from "./icons/st-clear.svg";
 
 
 // Original code taken from https://github.com/m-wrzr/streamlit-searchbox/blob/main/streamlit_searchbox/frontend/src/Searchbox.tsx
-// Adapted to latest streamlit-1.32.0 style
+// Updated to latest streamlit-1.45.0 style
 
 class FreeTextSelectStyle {
   theme: any;
@@ -23,14 +23,6 @@ class FreeTextSelectStyle {
     this.theme = theme;
     this.wrapper = {
       overflow: "visible",
-    };
-
-    this.label = {
-      color: theme.textColor,
-      fontSize: "12px",
-      fontWeight: 400,
-      font: theme.font,
-      marginBottom: "0.25rem",
     };
 
     this.select = {
@@ -61,55 +53,66 @@ class FreeTextSelectStyle {
         ...styles,
         color: theme.textColor,
       }),
-      //
-      singleValue: (styles: any) => ({
+      singleValue: (styles: any, { isDisabled }: any) => ({
         ...styles,
-        color: theme.textColor,
+        color: isDisabled ? this.theme.fadedText40 : theme.textColor,
       }),
-      placeholder: (styles: any) => ({
+      placeholder: (styles: any, { isDisabled }: any) => ({
         ...styles,
-        color: theme.fadedText60,
+        color: isDisabled ? "#bbb" : theme.fadedText60,
       }),
-      control: (styles: CSSObjectWithLabel, { isFocused }: ControlProps) => {
+      control: (
+        styles: CSSObjectWithLabel, 
+        { isFocused, isDisabled }: ControlProps
+      ) => {
+        const baseBorder = isFocused
+          ? "1px solid " + theme.primaryColor
+          : "1px solid transparent";
+
         return {
           ...styles,
           borderRadius: "0.5rem",
-          backgroundColor: theme.secondaryBackgroundColor,
-          color: theme.secondaryBackgroundColor,
-          border: !isFocused
-            ? "1px transparent"
-            : "1px solid " + theme.primaryColor,
+          backgroundColor: isDisabled
+            ? this.theme.darkenedBgMix15
+            : this.theme.secondaryBackgroundColor,
+          color: isDisabled ? this.theme.fadedText40 : this.theme.textColor,
+          border: baseBorder,
           boxShadow: "none",
+          cursor: isDisabled ? "not-allowed" : "default",
           "&:hover": {
-            border: !isFocused
-              ? "1px transparent"
-              : "1px solid " + theme.primaryColor,
+            border: baseBorder,
           },
           margin: "1px",
         };
       },
       option: (
         styles: CSSObjectWithLabel,
-        { isDisabled, isFocused, isSelected }: OptionProps
-      ) => {
-        return {
-          ...styles,
-          backgroundColor: isDisabled ? undefined
-            : isFocused ? theme.secondaryBackgroundColor : theme.backgroundColor,
-          color: theme.textColor,
-          cursor: isDisabled ? "not-allowed" : "Search ...",
-        };
-      },
+        { isDisabled, isFocused }: OptionProps
+      ) => ({
+        ...styles,
+        backgroundColor: isDisabled
+          ? theme.backgroundColor
+          : isFocused
+          ? theme.secondaryBackgroundColor
+          : theme.backgroundColor,
+        color: isDisabled ? this.theme.fadedText40 : theme.textColor,
+        cursor: isDisabled ? "not-allowed" : "pointer",
+      }),
     };
   }
 
-  iconDropdown(menu: boolean) {
+  iconDropdown(menu: boolean, isDisabled: boolean = false) {
+
+    const fillColor = isDisabled
+      ? this.theme.fadedText40
+      : this.theme.textColor;
+
     return (
       <div>
         <Dropdown
           width={24}
           height={24}
-          fill={this.theme.textColor}
+          fill={fillColor}
           style={{
             marginRight: "7px",
             marginBottom: "0px",
@@ -119,10 +122,24 @@ class FreeTextSelectStyle {
     );
   }
 
+  getLabelStyle(disabled: boolean) {
+    return {
+      color: disabled ? this.theme.fadedText40 : this.theme.textColor, 
+      fontSize: "14px",
+      fontWeight: 400,
+      fontFamily: "'Source Sans Pro', sans-serif",
+      marginBottom: "0.25rem",
+    };
+  }
+
   clearIndicator(props: any) {
     const {
       innerProps: { ref, ...restInnerProps },
+      selectProps,
     } = props;
+
+    // Don't show clear icon if disabled
+    if (selectProps.isDisabled) return null;
 
     return (
       <Clear
