@@ -88,6 +88,8 @@ str or None
 <!-- readme: contributors -end -->
 
 ## Release Notes
+- 0.3.0:
+    Enhancement: Support for `disabled=True` and updated styling to match streamlit-1.45.0. by [kevintcaron](https://github.com/kevintcaron)
 - 0.2.0:
     Enhancement: Allow dynamic updating of the options. by [LorianColtof](https://github.com/LorianColtof)
 - 0.1.2:

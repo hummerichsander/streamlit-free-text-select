@@ -3,7 +3,7 @@ from typing import Optional, Literal, Callable
 
 import streamlit.components.v1 as components
 
-_RELEASE = False
+_RELEASE = True
 
 if not _RELEASE:
     _component_func = components.declare_component(
@@ -13,9 +13,7 @@ if not _RELEASE:
 else:
     parent_dir = os.path.dirname(os.path.abspath(__file__))
     build_dir = os.path.join(parent_dir, "frontend/build")
-    _component_func = components.declare_component(
-        "st_free_text_select", path=build_dir
-    )
+    _component_func = components.declare_component("st_free_text_select", path=build_dir)
 
 
 def st_free_text_select(
@@ -80,11 +78,11 @@ def st_free_text_select(
         options = [format_func(option) for option in options]
 
     if index is not None:
-        assert index >= 0 and index < len(options), \
-            "index must be within the range of options"
+        assert index >= 0 and index < len(options), "index must be within the range of options"
 
-    assert label_visibility in ["visible", "hidden", "collapsed"], \
+    assert label_visibility in ["visible", "hidden", "collapsed"], (
         "label_visibility must be one of 'visible', 'hidden', 'collapsed'"
+    )
 
     component_value = _component_func(
         label=label,
